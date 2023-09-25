@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const requestLogger = require('./requestLogger');
 
 const films = [
   {
@@ -25,10 +26,18 @@ const films = [
   },
 ];
 
+app.use(requestLogger);
+
 // Vos routes Express seront définies ici
+
+app.get('/films', (req, res) => {
+  res.json(films);
+});
 
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
